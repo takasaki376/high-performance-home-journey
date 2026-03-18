@@ -15,7 +15,7 @@ const Header = () => {
     <header className={headerClass}>
       <Link href="/" aria-label={siteMetadata.headerTitle}>
         <div className="flex items-center">
-          <span className="text-lg font-bold text-gray-900 dark:text-gray-100 sm:text-xl">
+          <span className="text-lg font-bold text-gray-900 sm:text-xl dark:text-gray-100">
             {siteMetadata.headerTitle}
           </span>
         </div>

@@ -63,7 +63,7 @@ export default function HomePage() {
       <Hero />
 
       {/* Decision steps */}
-      <section className="py-12 border-t border-gray-100 dark:border-gray-800">
+      <section className="border-t border-gray-100 py-12 dark:border-gray-800">
         <SectionHeading
           title="家づくりの比較検討ステップ"
           subtitle="このブログでは以下の順番で意思決定プロセスを整理しています"
@@ -78,7 +78,7 @@ export default function HomePage() {
               <span className="mb-2 inline-block text-xs font-bold text-gray-400">
                 STEP {s.step}
               </span>
-              <h3 className="text-base font-bold text-gray-900 group-hover:text-primary-600 dark:text-gray-100 dark:group-hover:text-primary-400">
+              <h3 className="group-hover:text-primary-600 dark:group-hover:text-primary-400 text-base font-bold text-gray-900 dark:text-gray-100">
                 {s.title}
               </h3>
               <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{s.desc}</p>
@@ -88,7 +88,7 @@ export default function HomePage() {
       </section>
 
       {/* Category cards */}
-      <section className="py-12 border-t border-gray-100 dark:border-gray-800">
+      <section className="border-t border-gray-100 py-12 dark:border-gray-800">
         <SectionHeading title="カテゴリ一覧" />
         <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {categories.map((cat) => (
@@ -104,7 +104,7 @@ export default function HomePage() {
       </section>
 
       {/* Featured posts */}
-      <section className="py-12 border-t border-gray-100 dark:border-gray-800">
+      <section className="border-t border-gray-100 py-12 dark:border-gray-800">
         <SectionHeading
           title="おすすめ記事"
           subtitle="このブログを初めて読む方にお勧めの記事です"
@@ -117,7 +117,7 @@ export default function HomePage() {
       </section>
 
       {/* Latest posts */}
-      <section className="py-12 border-t border-gray-100 dark:border-gray-800">
+      <section className="border-t border-gray-100 py-12 dark:border-gray-800">
         <SectionHeading title="新着記事" />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {latestPosts.map((post) => (
@@ -127,7 +127,7 @@ export default function HomePage() {
       </section>
 
       {/* Profile CTA */}
-      <section className="py-12 border-t border-gray-100 dark:border-gray-800">
+      <section className="border-t border-gray-100 py-12 dark:border-gray-800">
         <div className="grid gap-8 md:grid-cols-2">
           <ProfileCard />
           <CTASection

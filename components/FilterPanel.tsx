@@ -41,12 +41,12 @@ export default function FilterPanel({
 
   return (
     <div className="rounded-xl border border-gray-100 bg-white p-6 dark:border-gray-800 dark:bg-gray-900">
-      <div className="flex items-center justify-between mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <h2 className="font-bold text-gray-900 dark:text-gray-100">絞り込み</h2>
         {hasActiveFilter && (
           <button
             onClick={clearFilters}
-            className="text-xs text-primary-500 hover:text-primary-600 font-medium"
+            className="text-primary-500 hover:text-primary-600 text-xs font-medium"
           >
             すべて表示
           </button>

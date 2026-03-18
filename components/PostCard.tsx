@@ -1,3 +1,4 @@
+import NextImage from 'next/image'
 import Link from './Link'
 import type { Post } from '@/data/blog-data/types'
 
@@ -14,12 +15,16 @@ export default function PostCard({ post }: PostCardProps) {
 
   return (
     <article className="group flex flex-col rounded-xl border border-gray-100 bg-white shadow-sm transition hover:shadow-md dark:border-gray-800 dark:bg-gray-900">
-      <Link href={`/posts/${post.slug}`} className="block overflow-hidden rounded-t-xl">
-        <img
+      <Link
+        href={`/posts/${post.slug}`}
+        className="relative block h-48 overflow-hidden rounded-t-xl"
+      >
+        <NextImage
           src={post.coverImage}
           alt={post.title}
-          className="h-48 w-full object-cover transition duration-300 group-hover:scale-105"
-          loading="lazy"
+          fill
+          className="object-cover transition duration-300 group-hover:scale-105"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
       </Link>
       <div className="flex flex-1 flex-col gap-3 p-5">
@@ -29,7 +34,7 @@ export default function PostCard({ post }: PostCardProps) {
           </span>
           <span className="text-xs text-gray-400">{post.readingTime}分で読める</span>
         </div>
-        <h3 className="text-base font-bold leading-snug text-gray-900 dark:text-gray-100">
+        <h3 className="text-base leading-snug font-bold text-gray-900 dark:text-gray-100">
           <Link
             href={`/posts/${post.slug}`}
             className="hover:text-primary-600 dark:hover:text-primary-400 transition"
@@ -37,10 +42,10 @@ export default function PostCard({ post }: PostCardProps) {
             {post.title}
           </Link>
         </h3>
-        <p className="flex-1 text-sm text-gray-500 dark:text-gray-400 line-clamp-3">
+        <p className="line-clamp-3 flex-1 text-sm text-gray-500 dark:text-gray-400">
           {post.excerpt}
         </p>
-        <div className="flex flex-wrap gap-1 mt-1">
+        <div className="mt-1 flex flex-wrap gap-1">
           {post.tags.slice(0, 3).map((tag) => (
             <span
               key={tag}

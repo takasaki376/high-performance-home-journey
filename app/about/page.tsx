@@ -1,11 +1,13 @@
 import { Metadata } from 'next'
+import NextImage from 'next/image'
 import Link from '@/components/Link'
 import { profile } from '@/data/blog-data/profile'
 import { categories } from '@/data/blog-data/categories'
 
 export const metadata: Metadata = {
   title: 'このブログについて',
-  description: '「私が高性能住宅を選ぶまで」のブログコンセプト、発信テーマ、筆者プロフィールについて説明します。',
+  description:
+    '「私が高性能住宅を選ぶまで」のブログコンセプト、発信テーマ、筆者プロフィールについて説明します。',
 }
 
 const READING_ORDER = [
@@ -49,7 +51,7 @@ const READING_ORDER = [
 
 export default function AboutPage() {
   return (
-    <div className="py-8 max-w-3xl mx-auto">
+    <div className="mx-auto max-w-3xl py-8">
       {/* Title */}
       <h1 className="mb-2 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100">
         このブログについて
@@ -64,14 +66,14 @@ export default function AboutPage() {
           ブログのコンセプト
         </h2>
         <div className="rounded-xl border border-gray-100 bg-gray-50 p-6 dark:border-gray-800 dark:bg-gray-900">
-          <p className="mb-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+          <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
             このブログは、家づくりの意思決定プロセスを論理的に整理して発信することを目的としています。
           </p>
-          <p className="mb-4 text-gray-700 dark:text-gray-300 leading-relaxed">
-            「マンションvs戸建て」「新築vs中古」「建売vs注文住宅」という最初の大きな選択から、土地選び、住宅性能の評価基準、そして高性能住宅（特にWELLNEST HOME）という結論に至るまで──
-            自分自身の検討プロセスをドキュメント化しています。
+          <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
+            「マンションvs戸建て」「新築vs中古」「建売vs注文住宅」という最初の大きな選択から、土地選び、住宅性能の評価基準、そして高性能住宅（特にWELLNEST
+            HOME）という結論に至るまで── 自分自身の検討プロセスをドキュメント化しています。
           </p>
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+          <p className="leading-relaxed text-gray-700 dark:text-gray-300">
             単なる主観的な日記ではなく、ファクトとロジックで意思決定を整理する、知的な比較ブログを目指しています。
           </p>
         </div>
@@ -91,11 +93,8 @@ export default function AboutPage() {
             '高性能住宅メーカーを検討している方',
             '住宅購入を感情ではなくロジックで決めたい方',
           ].map((item) => (
-            <li
-              key={item}
-              className="flex items-start gap-2 text-gray-700 dark:text-gray-300"
-            >
-              <span className="mt-1 text-primary-500">✓</span>
+            <li key={item} className="flex items-start gap-2 text-gray-700 dark:text-gray-300">
+              <span className="text-primary-500 mt-1">✓</span>
               {item}
             </li>
           ))}
@@ -133,7 +132,7 @@ export default function AboutPage() {
               <div>
                 <Link
                   href={item.href}
-                  className="font-medium text-gray-900 hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-400 transition"
+                  className="hover:text-primary-600 dark:hover:text-primary-400 font-medium text-gray-900 transition dark:text-gray-100"
                 >
                   {item.title}
                 </Link>
@@ -150,11 +149,13 @@ export default function AboutPage() {
           筆者プロフィール
         </h2>
         <div className="rounded-xl border border-gray-100 bg-white p-6 dark:border-gray-800 dark:bg-gray-900">
-          <div className="flex items-center gap-4 mb-4">
-            <img
+          <div className="mb-4 flex items-center gap-4">
+            <NextImage
               src={profile.avatar}
               alt={profile.displayName}
-              className="h-16 w-16 rounded-full object-cover"
+              width={64}
+              height={64}
+              className="rounded-full object-cover"
             />
             <div>
               <p className="text-lg font-bold text-gray-900 dark:text-gray-100">
@@ -170,7 +171,7 @@ export default function AboutPage() {
               )}
             </div>
           </div>
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line">
+          <p className="leading-relaxed whitespace-pre-line text-gray-700 dark:text-gray-300">
             {profile.longBio}
           </p>
         </div>

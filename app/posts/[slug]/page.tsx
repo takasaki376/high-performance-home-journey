@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import NextImage from 'next/image'
 import { notFound } from 'next/navigation'
 import Breadcrumb from '@/components/Breadcrumb'
 import PostCard from '@/components/PostCard'
@@ -11,9 +12,7 @@ interface PostPageProps {
 }
 
 export async function generateStaticParams() {
-  return posts
-    .filter((p) => !p.draft)
-    .map((p) => ({ slug: p.slug }))
+  return posts.filter((p) => !p.draft).map((p) => ({ slug: p.slug }))
 }
 
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
@@ -73,32 +72,34 @@ export default async function PostPage({ params }: PostPageProps) {
 
           <article>
             {/* Cover image */}
-            <img
-              src={post.coverImage}
-              alt={post.title}
-              className="mb-8 w-full rounded-xl object-cover"
-              style={{ maxHeight: '400px' }}
-            />
+            <div className="relative mb-8 h-64 w-full overflow-hidden rounded-xl sm:h-80 md:h-96">
+              <NextImage
+                src={post.coverImage}
+                alt={post.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 70vw"
+                priority
+              />
+            </div>
 
             {/* Meta */}
             <div className="mb-4 flex flex-wrap items-center gap-3">
               <Link
                 href={`/posts?category=${encodeURIComponent(post.category)}`}
-                className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 transition"
+                className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700 transition hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
               >
                 {post.category}
               </Link>
               <div className="flex items-center gap-2 text-xs text-gray-400">
                 <time dateTime={post.publishedAt}>公開: {publishedDate}</time>
-                {updatedDate && (
-                  <time dateTime={post.updatedAt}>更新: {updatedDate}</time>
-                )}
+                {updatedDate && <time dateTime={post.updatedAt}>更新: {updatedDate}</time>}
                 <span>{post.readingTime}分で読める</span>
               </div>
             </div>
 
             {/* Title */}
-            <h1 className="mb-6 text-2xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl">
+            <h1 className="mb-6 text-2xl leading-tight font-extrabold tracking-tight text-gray-900 sm:text-3xl dark:text-gray-100">
               {post.title}
             </h1>
 
@@ -108,7 +109,7 @@ export default async function PostPage({ params }: PostPageProps) {
                 <Link
                   key={tag}
                   href={`/posts?tag=${encodeURIComponent(tag)}`}
-                  className="rounded bg-gray-50 px-2 py-1 text-xs text-gray-500 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 transition"
+                  className="rounded bg-gray-50 px-2 py-1 text-xs text-gray-500 transition hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
                 >
                   #{tag}
                 </Link>
@@ -116,16 +117,24 @@ export default async function PostPage({ params }: PostPageProps) {
             </div>
 
             {/* Body */}
-            <div className="prose prose-gray max-w-none dark:prose-invert">
+            <div className="prose prose-gray dark:prose-invert max-w-none">
               {post.content.split('\n').map((line, i) => {
                 if (line.startsWith('## ')) {
                   return (
-                    <h2 key={i} className="mt-8 mb-4 text-xl font-bold text-gray-900 dark:text-gray-100">
+                    <h2
+                      key={i}
+                      className="mt-8 mb-4 text-xl font-bold text-gray-900 dark:text-gray-100"
+                    >
                       {line.replace('## ', '')}
                     </h2>
                   )
                 }
-                if (line.startsWith('1. ') || line.startsWith('2. ') || line.startsWith('3. ') || line.startsWith('4. ')) {
+                if (
+                  line.startsWith('1. ') ||
+                  line.startsWith('2. ') ||
+                  line.startsWith('3. ') ||
+                  line.startsWith('4. ')
+                ) {
                   return (
                     <li key={i} className="ml-4 text-gray-700 dark:text-gray-300">
                       {line.replace(/^\d+\. /, '')}
@@ -134,7 +143,7 @@ export default async function PostPage({ params }: PostPageProps) {
                 }
                 if (line.trim() === '') return <br key={i} />
                 return (
-                  <p key={i} className="mb-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+                  <p key={i} className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
                     {line}
                   </p>
                 )
@@ -145,9 +154,7 @@ export default async function PostPage({ params }: PostPageProps) {
           {/* Related posts */}
           {relatedPosts.length > 0 && (
             <section className="mt-12 border-t border-gray-100 pt-10 dark:border-gray-800">
-              <h2 className="mb-6 text-xl font-bold text-gray-900 dark:text-gray-100">
-                関連記事
-              </h2>
+              <h2 className="mb-6 text-xl font-bold text-gray-900 dark:text-gray-100">関連記事</h2>
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {relatedPosts.map((p) => (
                   <PostCard key={p.slug} post={p} />

@@ -5,10 +5,12 @@ import PostCard from '@/components/PostCard'
 import FilterPanel from '@/components/FilterPanel'
 import Sidebar from '@/components/Sidebar'
 import { posts, getAllCategories, getAllTags } from '@/data/blog-data/posts'
+import type { Tag } from '@/data/blog-data/types'
 
 export const metadata: Metadata = {
   title: '記事一覧',
-  description: '家づくりの意思決定プロセスに関するすべての記事を掲載しています。カテゴリやタグで絞り込んで読みたい記事を見つけてください。',
+  description:
+    '家づくりの意思決定プロセスに関するすべての記事を掲載しています。カテゴリやタグで絞り込んで読みたい記事を見つけてください。',
 }
 
 interface PostsPageProps {
@@ -26,7 +28,7 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
   const filteredPosts = posts.filter((post) => {
     if (post.draft) return false
     if (selectedCategory && post.category !== selectedCategory) return false
-    if (selectedTag && !post.tags.includes(selectedTag as any)) return false
+    if (selectedTag && !post.tags.includes(selectedTag as Tag)) return false
     return true
   })
 
@@ -79,7 +81,7 @@ export default async function PostsPage({ searchParams }: PostsPageProps) {
         </div>
 
         {/* Sidebar (desktop) */}
-        <div className="hidden lg:block space-y-8">
+        <div className="hidden space-y-8 lg:block">
           <Suspense fallback={null}>
             <FilterPanel
               categories={allCategories}

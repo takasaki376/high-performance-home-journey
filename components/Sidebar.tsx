@@ -20,7 +20,7 @@ export default function Sidebar() {
             <li key={cat.slug}>
               <Link
                 href={`/posts?category=${encodeURIComponent(cat.label)}`}
-                className="text-sm text-gray-600 hover:text-primary-500 dark:text-gray-400 dark:hover:text-primary-400 transition"
+                className="hover:text-primary-500 dark:hover:text-primary-400 text-sm text-gray-600 transition dark:text-gray-400"
               >
                 {cat.label}
               </Link>
@@ -37,7 +37,7 @@ export default function Sidebar() {
             <Link
               key={tag}
               href={`/posts?tag=${encodeURIComponent(tag)}`}
-              className="rounded bg-gray-100 px-2 py-1 text-xs text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 transition"
+              className="rounded bg-gray-100 px-2 py-1 text-xs text-gray-600 transition hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
             >
               #{tag}
             </Link>
@@ -53,7 +53,7 @@ export default function Sidebar() {
             <li key={post.slug}>
               <Link
                 href={`/posts/${post.slug}`}
-                className="text-sm text-gray-700 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-400 transition leading-snug"
+                className="hover:text-primary-500 dark:hover:text-primary-400 text-sm leading-snug text-gray-700 transition dark:text-gray-300"
               >
                 {post.title}
               </Link>
